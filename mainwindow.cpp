@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QGraphicsRectItem>
 #include <QInputDialog>
+#include <QLabel>
 
 QVector<QGraphicsRectItem*> Marks;
 

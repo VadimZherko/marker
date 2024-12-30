@@ -21,7 +21,7 @@
     <item>
      <widget class="QPushButton" name="addMarkButton">
       <property name="text">
-       <string>PushButton</string>
+       <string>Add mark</string>
       </property>
      </widget>
     </item>
