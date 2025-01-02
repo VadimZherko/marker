@@ -16,14 +16,18 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QGraphicsView" name="workArea"/>
-    </item>
-    <item>
      <widget class="QPushButton" name="addMarkButton">
       <property name="text">
-       <string>Add mark</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="img.qrc">
+        <normaloff>:/new/prefix1/img/plus-symbol-button.png</normaloff>:/new/prefix1/img/plus-symbol-button.png</iconset>
       </property>
      </widget>
+    </item>
+    <item>
+     <widget class="QGraphicsView" name="workArea"/>
     </item>
    </layout>
   </widget>
@@ -39,6 +43,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="img.qrc"/>
+ </resources>
  <connections/>
 </ui>

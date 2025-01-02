@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsView>
 
+#include "dialog.h"
+#include "mark.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,11 +21,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void drawMark(Mark*);
+
 private:
     Ui::MainWindow *ui;
+    Dialog* DialogWidget = new Dialog;
+    QGraphicsScene *scene = new QGraphicsScene();
 
-private slots:
+    QVector<Mark*> Marks;
 
-    void addMarkDialog();
+
+    void AddMark(int x , int y);
+    void drawBackground(QGraphicsScene*);
 };
 #endif // MAINWINDOW_H

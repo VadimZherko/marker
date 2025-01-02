@@ -1,11 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-#include <QGraphicsView>
-#include <QGraphicsRectItem>
-#include <QInputDialog>
-#include <QLabel>
-
 QVector<QGraphicsRectItem*> Marks;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -14,12 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QGraphicsScene *scene = new QGraphicsScene(); //Создание сцены
-    scene->setSceneRect(0, 0, 1920, 1080); //Размер сцены
+    QObject::connect(ui->addMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(addMarkDialog()));
+    QObject::connect(DialogWidget, &Dialog::dataReady, this, &MainWindow::AddMark);
+
+    scene->setSceneRect(0, 0, 100000, 100000);//Размер сцены
+    drawBackground(scene);
     ui->workArea->setDragMode(QGraphicsView::ScrollHandDrag);
     ui->workArea->setScene(scene);//Устанавливаю сцену
-
-    QObject::connect(ui->addMarkButton,SIGNAL(clicked()),this,SLOT(addMarkDialog()));
 }
 
 MainWindow::~MainWindow()
@@ -27,45 +23,35 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addMarkDialog() //Создание диалога для добавления новой метки
+void MainWindow::drawBackground(QGraphicsScene* scene)
 {
-    QDialog Dialog;
+    const int gridSize = 20;
+    QPen pen(Qt::gray);
+    auto size = scene->sceneRect();
 
-    Dialog.setWindowTitle("Add new mark");
-
-    QLabel* xLabel = new QLabel("X ");
-    QLineEdit* xLineEdit = new QLineEdit();
-    xLabel->setBuddy(xLineEdit);
-
-    QLabel* yLabel = new QLabel("Y ");
-    QLineEdit* yLineEdit = new QLineEdit();
-    yLabel->setBuddy(yLineEdit);
-
-    QPushButton* addButton = new QPushButton("Add mark");
-
-
-    QVBoxLayout* dialogLayout = new QVBoxLayout;
-
-    dialogLayout->addWidget(xLabel);
-    dialogLayout->addWidget(xLineEdit);
-    dialogLayout->addWidget(yLabel);
-    dialogLayout->addWidget(yLineEdit);
-    dialogLayout->addWidget(addButton);
-    Dialog.setLayout(dialogLayout);
-
-    auto scene = ui->workArea->scene();
-    connect(addButton, &QPushButton::clicked, [&Dialog, &scene, &xLineEdit, &yLineEdit]()
+    for(int y = size.top(); y < size.bottom(); y += gridSize)
     {
-        QGraphicsRectItem* a = new QGraphicsRectItem(xLineEdit->text().toInt(), xLineEdit->text().toInt(), 20, 20);
-        a->setBrush(Qt::black);
-        a->setFlag(QGraphicsItem::ItemIsMovable);
-        a->setFlag(QGraphicsItem::ItemIsSelectable);
-        Marks.push_back(a);
-        scene->addItem(Marks.back());
-        Dialog.accept();
-    });
+        scene->addLine(size.left(),y,size.right(),y,pen);
+    }
 
-    ui->workArea->setScene(scene);
-    Dialog.exec();
+    for(int x = size.left(); x < size.right(); x += gridSize)
+    {
+        scene->addLine(x, size.top(), x, size.bottom(),pen);
+    }
 }
+
+void MainWindow::drawMark(Mark* mark)
+{
+    scene->addItem(mark);
+    ui->workArea->setScene(scene);
+}
+
+void MainWindow::AddMark(int x, int y)
+{
+    Mark* new_mark = new Mark(x,y);
+    Marks.push_back(new_mark);
+
+    drawMark(Marks.back());
+}
+
 

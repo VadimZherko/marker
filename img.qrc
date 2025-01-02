@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>img/plus-symbol-button.png</file>
+        <file>img/barcode.png</file>
+    </qresource>
+</RCC>
