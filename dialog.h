@@ -6,6 +6,8 @@
 #include <QLineEdit>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QMessageBox>
+#include <QComboBox>
 
 class Dialog : public QDialog
 {
@@ -17,7 +19,7 @@ private:
     QDialog dialog;
 
 signals:
-    void dataReady(int x, int y);
+    void dataReady(int x, int y, int angular);
 
 public slots:
     void addMarkDialog();

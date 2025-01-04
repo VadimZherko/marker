@@ -16,15 +16,30 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="addMarkButton">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="img.qrc">
-        <normaloff>:/new/prefix1/img/plus-symbol-button.png</normaloff>:/new/prefix1/img/plus-symbol-button.png</iconset>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QPushButton" name="addMarkButton">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="img.qrc">
+          <normaloff>:/new/prefix1/img/addMarkIcon.png</normaloff>:/new/prefix1/img/addMarkIcon.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="removeMarkButton">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="img.qrc">
+          <normaloff>:/new/prefix1/img/removeMarkIcon.png</normaloff>:/new/prefix1/img/removeMarkIcon.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QGraphicsView" name="workArea"/>

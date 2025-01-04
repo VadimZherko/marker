@@ -11,10 +11,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(ui->addMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(addMarkDialog()));
     QObject::connect(DialogWidget, &Dialog::dataReady, this, &MainWindow::AddMark);
+    QObject::connect(ui->removeMarkButton, &QPushButton::clicked,this, &MainWindow::removeMark);
 
-    scene->setSceneRect(0, 0, 100000, 100000);//Размер сцены
+    scene->setSceneRect(0, 0, 1890, 1890);//Размер сцены
     drawBackground(scene);
     ui->workArea->setDragMode(QGraphicsView::ScrollHandDrag);
+    //ui->workArea->setDragMode(QGraphicsView::RubberBandDrag);
+    ui->workArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->workArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->workArea->setScene(scene);//Устанавливаю сцену
 }
 
@@ -25,7 +29,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::drawBackground(QGraphicsScene* scene)
 {
-    const int gridSize = 20;
+    const int gridSize = 70;
     QPen pen(Qt::gray);
     auto size = scene->sceneRect();
 
@@ -38,20 +42,28 @@ void MainWindow::drawBackground(QGraphicsScene* scene)
     {
         scene->addLine(x, size.top(), x, size.bottom(),pen);
     }
+
+    pen.setWidth(5);
+    scene->addLine((size.right() / 2) + (int)(size.right()  / 2)%70 , 0, (size.right() / 2) + (int)(size.right()  / 2)%70, size.bottom(), pen);
+    scene->addLine(0, (size.bottom() / 2) + (int)(size.bottom()  / 2)%70, size.right(), (size.bottom() / 2) + (int)(size.bottom()  / 2)%70, pen);
 }
 
-void MainWindow::drawMark(Mark* mark)
+void MainWindow::AddMark(int x, int y, int angular)
 {
-    scene->addItem(mark);
+    Mark* new_mark = new Mark(x, y, angular);
+    scene->addItem(new_mark);
     ui->workArea->setScene(scene);
 }
 
-void MainWindow::AddMark(int x, int y)
+void MainWindow::removeMark()
 {
-    Mark* new_mark = new Mark(x,y);
-    Marks.push_back(new_mark);
-
-    drawMark(Marks.back());
+    auto selectedItems = scene->selectedItems();
+    for(auto item : selectedItems)
+    {
+        scene->removeItem(item);
+        delete item;
+    }
 }
+
 
 

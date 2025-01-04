@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsView>
+#include <QKeyEvent>
 
 #include "dialog.h"
 #include "mark.h"
@@ -21,17 +22,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void drawMark(Mark*);
-
 private:
     Ui::MainWindow *ui;
     Dialog* DialogWidget = new Dialog;
     QGraphicsScene *scene = new QGraphicsScene();
 
-    QVector<Mark*> Marks;
-
-
-    void AddMark(int x , int y);
+    void AddMark(int x , int y, int angular);
+    void removeMark();
     void drawBackground(QGraphicsScene*);
 };
 #endif // MAINWINDOW_H

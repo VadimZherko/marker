@@ -7,7 +7,7 @@
 class Mark : public QGraphicsPixmapItem
 {
 public:
-    Mark(int, int);
+    Mark(int, int, int);
 };
 
 #endif // MARK_H

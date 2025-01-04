@@ -1,6 +1,10 @@
 <RCC>
     <qresource prefix="/new/prefix1">
-        <file>img/plus-symbol-button.png</file>
-        <file>img/barcode.png</file>
+        <file>img/addMarkIcon.png</file>
+        <file>img/markIcon.png</file>
+        <file>img/removeMarkIcon.png</file>
+        <file>img/markIcon_90.png</file>
+        <file>img/markIcon_180.png</file>
+        <file>img/markIcon_270.png</file>
     </qresource>
 </RCC>
