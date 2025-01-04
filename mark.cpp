@@ -3,6 +3,9 @@
 Mark::Mark(int x, int y, int angular)
 {
     this->setOffset(x, y);
+    this->angular = angular;
+    this->x = x;
+    this->y = y;
     QPixmap QrImage(":/new/prefix1/img/markIcon.png");
     if(angular == 90) QrImage.load(":/new/prefix1/img/markIcon_90.png");
     else if(angular == 180) QrImage.load(":/new/prefix1/img/markIcon_180.png");
@@ -11,4 +14,19 @@ Mark::Mark(int x, int y, int angular)
     this->setPixmap(QrImage);
     this->setFlag(QGraphicsItem::ItemIsMovable);
     this->setFlag(QGraphicsItem::ItemIsSelectable);
+}
+
+int Mark::getAngular()
+{
+    return this->angular;
+}
+
+int Mark::getX()
+{
+    return this->x;
+}
+
+int Mark::getY()
+{
+    return this->y;
 }

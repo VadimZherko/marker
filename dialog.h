@@ -20,10 +20,11 @@ private:
 
 signals:
     void dataReady(int x, int y, int angular);
+    void dataDuplicateReady(int x, int y);
 
 public slots:
     void addMarkDialog();
-
+    void duplicateMarkDialog();
 };
 
 #endif // DIALOG_H

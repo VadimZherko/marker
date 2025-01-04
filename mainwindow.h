@@ -29,6 +29,7 @@ private:
 
     void AddMark(int x , int y, int angular);
     void removeMark();
+    void duplicateMark(int x, int y);
     void drawBackground(QGraphicsScene*);
 };
 #endif // MAINWINDOW_H

@@ -8,6 +8,14 @@ class Mark : public QGraphicsPixmapItem
 {
 public:
     Mark(int, int, int);
+    int getAngular();
+    int getY();
+    int getX();
+
+private:
+    int angular;
+    int x;
+    int y;
 };
 
 #endif // MARK_H

@@ -39,6 +39,17 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="duplicateMarkButton">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="img.qrc">
+          <normaloff>:/new/prefix1/img/markIcon.png</normaloff>:/new/prefix1/img/markIcon.png</iconset>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>

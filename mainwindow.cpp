@@ -10,7 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     QObject::connect(ui->addMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(addMarkDialog()));
+    QObject::connect(ui->duplicateMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(duplicateMarkDialog()));
+
     QObject::connect(DialogWidget, &Dialog::dataReady, this, &MainWindow::AddMark);
+    QObject::connect(DialogWidget, &Dialog::dataDuplicateReady, this, &MainWindow::duplicateMark);
+
     QObject::connect(ui->removeMarkButton, &QPushButton::clicked,this, &MainWindow::removeMark);
 
     scene->setSceneRect(0, 0, 1890, 1890);//Размер сцены
@@ -20,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->workArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->workArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->workArea->setScene(scene);//Устанавливаю сцену
+    ui->workArea->translate(13,13);
 }
 
 MainWindow::~MainWindow()
@@ -62,6 +67,23 @@ void MainWindow::removeMark()
     {
         scene->removeItem(item);
         delete item;
+    }
+}
+
+void MainWindow::duplicateMark(int x, int y)
+{
+    auto selectedItems = scene->selectedItems();
+    if (!selectedItems.empty())
+    {
+        for(auto item : selectedItems)
+        {
+            Mark* markItem = qgraphicsitem_cast<Mark*>(item);
+            AddMark(markItem->getX() + x, markItem->getY() + y, markItem->getAngular());
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this,"Error", "No items selected");
     }
 }
 
