@@ -75,7 +75,14 @@
      </layout>
     </item>
     <item>
-     <widget class="QGraphicsView" name="workArea"/>
+     <widget class="QGraphicsView" name="workArea">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_3">

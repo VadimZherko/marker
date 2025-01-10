@@ -2,7 +2,7 @@
 
 Dialog::Dialog() {}
 
-void Dialog::addMarkDialog() //Создание диалога для добавления новой метки
+void Dialog::addMarkDialog()
 {
     this->dialog.setWindowTitle("Add new mark");
 

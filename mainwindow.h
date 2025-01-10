@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsView>
 #include <QKeyEvent>
+#include <QString>
 
 #include "dialog.h"
 #include "mark.h"
@@ -29,7 +30,7 @@ private:
 
     const int gridSize = 80;
 
-    void AddMark(int x , int y, int angular);
+    bool AddMark(int x , int y, int angular);
     void removeMark();
     void duplicateMark(int x, int y);
     void moveToMark(int x, int y);

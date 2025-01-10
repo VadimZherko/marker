@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->workArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->workArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->workArea->setScene(scene);
-    //ui->workArea->translate(13,13);
 }
 
 MainWindow::~MainWindow()
@@ -37,23 +36,43 @@ void MainWindow::drawBackground(QGraphicsScene* scene)
 {
     QPen pen(Qt::gray);
     auto size = scene->sceneRect();
+    auto width = scene->sceneRect().width();
+    auto height = scene->sceneRect().height();
 
-    for(int y = size.top(); y < size.bottom(); y += gridSize)
+    for(int y = 0; y < height; y += gridSize)
     {
-        scene->addLine(size.left(),y,size.right(),y,pen);
+        scene->addLine(0, y, width, y, pen);
     }
 
-    for(int x = size.left(); x < size.right(); x += gridSize)
+    for(int x = 0; x < width; x += gridSize)
     {
-        scene->addLine(x, size.top(), x, size.bottom(),pen);
+        scene->addLine(x, 0, x, height, pen);
     }
 
     pen.setWidth(5);
-    scene->addLine((size.right() / 2) + (int)(size.right()  / 2) % gridSize , 0, (size.right() / 2) + (int)(size.right()  / 2) % gridSize, size.bottom(), pen);
-    scene->addLine(0, (size.bottom() / 2) + (int)(size.bottom()  / 2) % gridSize, size.right(), (size.bottom() / 2) + (int)(size.bottom()  / 2) % gridSize, pen);
+    scene->addLine((width / 2) + (int)(width  / 2) % gridSize , 0, (width / 2) + (int)(width  / 2) % gridSize, height, pen);
+    scene->addLine(0, (height / 2) + (int)(height  / 2) % gridSize, width, (size.bottom() / 2) + (int)(height / 2) % gridSize, pen);
+
+    for(int x = 0,  i = (width  / gridSize) / 2 * -1 - 1; x < width; x += gridSize, i ++)
+    {
+        scene->addLine(x, (height / 2) + (int)(height  / 2) % gridSize - 10, x, (height / 2) + (int)(height  / 2) % gridSize +10, pen);
+
+        QGraphicsSimpleTextItem* text = new QGraphicsSimpleTextItem(QString::number(i)) ;
+        text->setPos(x, (height / 2) + (int)(height  / 2) % gridSize + 20);
+        scene->addItem(text);
+    }
+
+    for(int y = 0, i = (height  / gridSize) / 2 * -1 - 1 ; y < height; y += gridSize, i++)
+    {
+        scene->addLine((width / 2) + (int)(width  / 2) % gridSize - 10, y, (width / 2) + (int)(width  / 2) % gridSize + 10, y, pen);
+
+        QGraphicsSimpleTextItem* text = new QGraphicsSimpleTextItem(QString::number(i)) ;
+        text->setPos((width / 2) + (int)(width  / 2) % gridSize + 20, y);
+        scene->addItem(text);
+    }
 }
 
-void MainWindow::AddMark(int x, int y, int angular)
+bool MainWindow::AddMark(int x, int y, int angular)
 {
     const QTransform imp;
     if(scene->itemAt(x,y,imp) == nullptr)
@@ -61,10 +80,12 @@ void MainWindow::AddMark(int x, int y, int angular)
         Mark* new_mark = new Mark(x, y, angular);
         scene->addItem(new_mark);
         ui->workArea->setScene(scene);
+        return true;
     }
     else
     {
         QMessageBox::warning(this,"Error", "There is already a mark at this place");
+        return false;
     }
 }
 
@@ -101,8 +122,7 @@ void MainWindow::moveToMark(int x, int y)
     if (!selectedItems.empty())
     {
         Mark* markItem = qgraphicsitem_cast<Mark*>(selectedItems[0]);
-        AddMark(x, y, markItem->getAngular());
-        delete markItem;
+        if(AddMark(x, y, markItem->getAngular())) delete markItem;
     }
     else
     {
