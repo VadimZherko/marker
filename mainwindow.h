@@ -27,9 +27,15 @@ private:
     Dialog* DialogWidget = new Dialog;
     QGraphicsScene *scene = new QGraphicsScene();
 
+    const int gridSize = 80;
+
     void AddMark(int x , int y, int angular);
     void removeMark();
     void duplicateMark(int x, int y);
+    void moveToMark(int x, int y);
     void drawBackground(QGraphicsScene*);
+
+private slots:
+    void rotateMark();
 };
 #endif // MAINWINDOW_H

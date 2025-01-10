@@ -12,6 +12,8 @@ public:
     int getY();
     int getX();
 
+    void setAngular(int);
+
 private:
     int angular;
     int x;
