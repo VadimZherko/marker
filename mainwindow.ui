@@ -13,12 +13,41 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #1e1e2e; /* Тёмно-синий фон */
+color: #ffffff; /* Белый цвет текста */
+selection-background-color: #ff9800;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QPushButton" name="addMarkButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #2e2e3e; /* Тёмно-синий цвет кнопки */
+    border: 2px solid #3e3e5e; /* Более тёмная граница */
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton:hover {
+    border: 2px solid #ff9800; /* Оранжевая граница при наведении */
+}
+
+QPushButton:pressed {
+    background-color: #ff9800; /* Оранжевый фон при нажатии */
+    border: 2px solid #ff9800;
+    color: #1e1e2e; /* Тёмный цвет текста при нажатии */
+}
+
+QPushButton:disabled {
+    background-color: #3e3e5e;
+    border: 2px solid #3e3e5e;
+    color: #7e7e8e;
+}</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -30,6 +59,30 @@
       </item>
       <item>
        <widget class="QPushButton" name="removeMarkButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #2e2e3e; /* Тёмно-синий цвет кнопки */
+    border: 2px solid #3e3e5e; /* Более тёмная граница */
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton:hover {
+    border: 2px solid #ff9800; /* Оранжевая граница при наведении */
+}
+
+QPushButton:pressed {
+    background-color: #ff9800; /* Оранжевый фон при нажатии */
+    border: 2px solid #ff9800;
+    color: #1e1e2e; /* Тёмный цвет текста при нажатии */
+}
+
+QPushButton:disabled {
+    background-color: #3e3e5e;
+    border: 2px solid #3e3e5e;
+    color: #7e7e8e;
+}</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -41,6 +94,30 @@
       </item>
       <item>
        <widget class="QPushButton" name="duplicateMarkButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #2e2e3e; /* Тёмно-синий цвет кнопки */
+    border: 2px solid #3e3e5e; /* Более тёмная граница */
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton:hover {
+    border: 2px solid #ff9800; /* Оранжевая граница при наведении */
+}
+
+QPushButton:pressed {
+    background-color: #ff9800; /* Оранжевый фон при нажатии */
+    border: 2px solid #ff9800;
+    color: #1e1e2e; /* Тёмный цвет текста при нажатии */
+}
+
+QPushButton:disabled {
+    background-color: #3e3e5e;
+    border: 2px solid #3e3e5e;
+    color: #7e7e8e;
+}</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -52,6 +129,30 @@
       </item>
       <item>
        <widget class="QPushButton" name="moveToMarkButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #2e2e3e; /* Тёмно-синий цвет кнопки */
+    border: 2px solid #3e3e5e; /* Более тёмная граница */
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton:hover {
+    border: 2px solid #ff9800; /* Оранжевая граница при наведении */
+}
+
+QPushButton:pressed {
+    background-color: #ff9800; /* Оранжевый фон при нажатии */
+    border: 2px solid #ff9800;
+    color: #1e1e2e; /* Тёмный цвет текста при нажатии */
+}
+
+QPushButton:disabled {
+    background-color: #3e3e5e;
+    border: 2px solid #3e3e5e;
+    color: #7e7e8e;
+}</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -63,6 +164,30 @@
       </item>
       <item>
        <widget class="QPushButton" name="rotateMarkButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    background-color: #2e2e3e; /* Тёмно-синий цвет кнопки */
+    border: 2px solid #3e3e5e; /* Более тёмная граница */
+    border-radius: 5px;
+    padding: 5px;
+}
+
+QPushButton:hover {
+    border: 2px solid #ff9800; /* Оранжевая граница при наведении */
+}
+
+QPushButton:pressed {
+    background-color: #ff9800; /* Оранжевый фон при нажатии */
+    border: 2px solid #ff9800;
+    color: #1e1e2e; /* Тёмный цвет текста при нажатии */
+}
+
+QPushButton:disabled {
+    background-color: #3e3e5e;
+    border: 2px solid #3e3e5e;
+    color: #7e7e8e;
+}</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -80,7 +205,96 @@
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">/* QGraphicsView */
+QGraphicsView {
+    background-color: #1e1e2e; /* Тёмно-синий фон */
+    border: 2px solid #3e3e5e; /* Тёмная граница */
+    border-radius: 5px;
+}
+
+/* Полосы прокрутки в QGraphicsView */
+QGraphicsView QScrollBar:vertical {
+    background: #2e2e3e;
+    width: 15px;
+    margin: 0px;
+}
+
+QGraphicsView QScrollBar::handle:vertical {
+    background: #555555;
+    min-height: 20px;
+    border-radius: 7px;
+}
+
+QGraphicsView QScrollBar::add-line:vertical,
+QGraphicsView QScrollBar::sub-line:vertical {
+    background: #2e2e3e;
+    height: 0px;
+}
+
+QGraphicsView QScrollBar::add-page:vertical,
+QGraphicsView QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QGraphicsView QScrollBar:horizontal {
+    background: #2e2e3e;
+    height: 15px;
+    margin: 0px;
+}
+
+QGraphicsView QScrollBar::handle:horizontal {
+    background: #555555;
+    min-width: 20px;
+    border-radius: 7px;
+}
+
+QGraphicsView QScrollBar::add-line:horizontal,
+QGraphicsView QScrollBar::sub-line:horizontal {
+    background: #2e2e3e;
+    width: 0px;
+}
+
+QGraphicsView QScrollBar::add-page:horizontal,
+QGraphicsView QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+/* Элементы внутри QGraphicsView */
+QGraphicsView QWidget {
+    background-color: #2e2e3e;
+    border: none;
+    color: #ffffff;
+}
+
+/* Элементы при наведении и взаимодействии */
+QGraphicsView QWidget:hover {
+    border: 1px solid #ff9800; /* Оранжевая граница при наведении */
+}
+
+QGraphicsView QWidget:focus {
+    border: 1px solid #ff9800; /* Оранжевая граница при фокусе */
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="renderHints">
+       <set>QPainter::Antialiasing|QPainter::TextAntialiasing</set>
+      </property>
+      <property name="dragMode">
+       <enum>QGraphicsView::ScrollHandDrag</enum>
+      </property>
+      <property name="transformationAnchor">
+       <enum>QGraphicsView::AnchorViewCenter</enum>
+      </property>
+      <property name="viewportUpdateMode">
+       <enum>QGraphicsView::MinimalViewportUpdate</enum>
       </property>
      </widget>
     </item>
@@ -131,10 +345,57 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>23</height>
+     <height>28</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QMenuBar {
+    background-color: #2e2e3e;
+    border-bottom: 2px solid #3e3e5e;
+}
+
+QMenuBar::item {
+    background: transparent;
+    padding: 5px 10px;
+}
+
+QMenuBar::item:selected {
+    background-color: #ff9800;
+    color: #1e1e2e;
+    border-radius: 5px;
+}</string>
+   </property>
    <widget class="QMenu" name="menuFIle">
+    <property name="styleSheet">
+     <string notr="true">QMenu {
+    background-color: #2e2e3e;
+    border: 1px solid #3e3e5e;
+}
+
+QMenu::item {
+    background-color: transparent;
+    padding: 5px 20px;
+}
+
+QMenu::item:selected {
+    background-color: #ff9800;
+    color: #1e1e2e;
+}
+
+/* QAction (применяется через QMenu) */
+QMenu::indicator {
+    width: 16px;
+    height: 16px;
+}
+
+QMenu::indicator:checked {
+    image: url(:/icons/checked.png); /* Иконка для отмеченного состояния */
+}
+
+QMenu::indicator:unchecked {
+    image: url(:/icons/unchecked.png); /* Иконка для неотмеченного состояния */
+}</string>
+    </property>
     <property name="title">
      <string>FIle</string>
     </property>
@@ -145,7 +406,18 @@
    </widget>
    <addaction name="menuFIle"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="styleSheet">
+    <string notr="true">QStatusBar {
+    background-color: #2e2e3e;
+    border-top: 2px solid #3e3e5e;
+}
+
+QStatusBar::item {
+    border: none;
+}</string>
+   </property>
+  </widget>
   <action name="actionNew">
    <property name="text">
     <string>New</string>

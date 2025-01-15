@@ -16,9 +16,11 @@ public:
     Dialog();
 
 private:
-    QDialog dialog;
-    const int gridSize = 80;
-    const int sceneSize = 2000;
+    const int gridSize = 40;
+
+    QDialog addMarkDialog;
+    QDialog duplicateMarkDialog;
+    QDialog moveToMarkDialog;
 
 signals:
     void dataReady(int x, int y, int angular);
@@ -26,9 +28,9 @@ signals:
     void dataMoveToReady(int x, int y);
 
 public slots:
-    void addMarkDialog();
-    void duplicateMarkDialog();
-    void moveToMarkDialog();
+    void showAddMarkDialog();
+    void showDuplicateMarkDialog();
+    void showMoveToMarkDialog();
 };
 
 #endif // DIALOG_H

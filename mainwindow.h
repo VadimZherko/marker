@@ -28,9 +28,9 @@ private:
     Dialog* DialogWidget = new Dialog;
     QGraphicsScene *scene = new QGraphicsScene();
 
-    const int gridSize = 80;
+    const int gridSize = 40;
 
-    bool AddMark(int x , int y, int angular);
+    bool addMark(int x , int y, int angular);
     void removeMark();
     void duplicateMark(int x, int y);
     void moveToMark(int x, int y);

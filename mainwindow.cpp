@@ -7,23 +7,20 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QObject::connect(ui->addMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(addMarkDialog()));
-    QObject::connect(ui->duplicateMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(duplicateMarkDialog()));
-    QObject::connect(ui->moveToMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(moveToMarkDialog()));
+    QObject::connect(ui->addMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(showAddMarkDialog()));
+    QObject::connect(ui->duplicateMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(showDuplicateMarkDialog()));
+    QObject::connect(ui->moveToMarkButton, SIGNAL(clicked()), this->DialogWidget, SLOT(showMoveToMarkDialog()));
     QObject::connect(ui->rotateMarkButton, SIGNAL(clicked()), this, SLOT(rotateMark()));
 
-    QObject::connect(DialogWidget, &Dialog::dataReady, this, &MainWindow::AddMark);
+    QObject::connect(DialogWidget, &Dialog::dataReady, this, &MainWindow::addMark);
     QObject::connect(DialogWidget, &Dialog::dataDuplicateReady, this, &MainWindow::duplicateMark);
     QObject::connect(DialogWidget, &Dialog::dataMoveToReady, this, &MainWindow::moveToMark);
 
     QObject::connect(ui->removeMarkButton, &QPushButton::clicked,this, &MainWindow::removeMark);
 
-    scene->setSceneRect(0, 0, 2000, 2000);
+    scene->setSceneRect(-gridSize * 10, -gridSize * 40, gridSize * 50, gridSize * 50);
+    ui->workArea->translate(500,1500);//Расчёт
     drawBackground(scene);
-    ui->workArea->setDragMode(QGraphicsView::ScrollHandDrag);
-    //ui->workArea->setDragMode(QGraphicsView::RubberBandDrag);
-    ui->workArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->workArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->workArea->setScene(scene);
 }
 
@@ -34,59 +31,87 @@ MainWindow::~MainWindow()
 
 void MainWindow::drawBackground(QGraphicsScene* scene)
 {
-    QPen pen(Qt::gray);
-    auto size = scene->sceneRect();
-    auto width = scene->sceneRect().width();
-    auto height = scene->sceneRect().height();
+    QColor color(225,79,0,255);
+    QPen pen(color,1);
 
-    for(int y = 0; y < height; y += gridSize)
+    auto left = scene->sceneRect().left();
+    auto right = scene->sceneRect().right();
+    auto top = scene->sceneRect().top();
+    auto bottom = scene->sceneRect().bottom();
+
+    for(int y = top; y < bottom; y += gridSize) //Grid
     {
-        scene->addLine(0, y, width, y, pen);
+        scene->addLine(left, y, right, y, pen);
     }
 
-    for(int x = 0; x < width; x += gridSize)
+    for(int x = left; x < right; x += gridSize) //Grid
     {
-        scene->addLine(x, 0, x, height, pen);
+        scene->addLine(x, top, x, bottom, pen);
     }
 
-    pen.setWidth(5);
-    scene->addLine((width / 2) + (int)(width  / 2) % gridSize , 0, (width / 2) + (int)(width  / 2) % gridSize, height, pen);
-    scene->addLine(0, (height / 2) + (int)(height  / 2) % gridSize, width, (size.bottom() / 2) + (int)(height / 2) % gridSize, pen);
+    pen.setWidthF(0.2);
 
-    for(int x = 0,  i = (width  / gridSize) / 2 * -1 - 1; x < width; x += gridSize, i ++)
+    for(int y = top; y < bottom; y += gridSize / 5) //Grid
     {
-        scene->addLine(x, (height / 2) + (int)(height  / 2) % gridSize - 10, x, (height / 2) + (int)(height  / 2) % gridSize +10, pen);
+        scene->addLine(left, y, right, y, pen);
+    }
 
-        QGraphicsSimpleTextItem* text = new QGraphicsSimpleTextItem(QString::number(i)) ;
-        text->setPos(x, (height / 2) + (int)(height  / 2) % gridSize + 20);
+    for(int x = left; x < right; x += gridSize / 5) //Grid
+    {
+        scene->addLine(x, top, x, bottom, pen);
+    }
+
+    pen.setWidth(3);
+    scene->addLine(0, top, 0, bottom, pen); //coordinate axis Y
+    scene->addLine(left, 0, right, 0, pen); //coordinate axis X
+
+    color.setRgb(255,255,255,255);
+    QPen pen_text(color);
+
+    for(int x = left, i = -10; x < right; x+= gridSize, i++) //Lines on axis X
+    {
+        if(i == 0) continue;
+        scene->addLine(x, -3, x, 3, pen);
+
+        QGraphicsSimpleTextItem* text = new QGraphicsSimpleTextItem(QString::number(i));
+        text->setPen(pen_text);
+        text->setPos(x, 10);
         scene->addItem(text);
     }
 
-    for(int y = 0, i = (height  / gridSize) / 2 * -1 - 1 ; y < height; y += gridSize, i++)
+    for(int y = bottom, i = -10; y > top; y -= gridSize, i++) //Lines on axis Y
     {
-        scene->addLine((width / 2) + (int)(width  / 2) % gridSize - 10, y, (width / 2) + (int)(width  / 2) % gridSize + 10, y, pen);
+        if(i == 0) continue;
+        scene->addLine(-3, y, 3, y, pen);
 
-        QGraphicsSimpleTextItem* text = new QGraphicsSimpleTextItem(QString::number(i)) ;
-        text->setPos((width / 2) + (int)(width  / 2) % gridSize + 20, y);
+        QGraphicsSimpleTextItem* text = new QGraphicsSimpleTextItem(QString::number(i));
+        text->setPen(pen_text);
+        text->setPos(10, y);
         scene->addItem(text);
     }
+
+    QGraphicsSimpleTextItem* text = new QGraphicsSimpleTextItem(QString::number(0));
+    text->setPen(pen_text);
+    text->setPos(10, 10);
+    scene->addItem(text);
 }
 
-bool MainWindow::AddMark(int x, int y, int angular)
+bool MainWindow::addMark(int x, int y, int angular)
 {
     const QTransform imp;
-    if(scene->itemAt(x,y,imp) == nullptr)
+    /*if(scene->itemAt(x,y,imp) == nullptr)
     {
-        Mark* new_mark = new Mark(x, y, angular);
-        scene->addItem(new_mark);
-        ui->workArea->setScene(scene);
-        return true;
+
     }
     else
     {
         QMessageBox::warning(this,"Error", "There is already a mark at this place");
         return false;
-    }
+    }*/
+    Mark* new_mark = new Mark(x, y, angular);
+    scene->addItem(new_mark);
+    ui->workArea->setScene(scene);
+    return true;
 }
 
 void MainWindow::removeMark()
@@ -107,7 +132,7 @@ void MainWindow::duplicateMark(int x, int y)
         for(auto item : selectedItems)
         {
             Mark* markItem = qgraphicsitem_cast<Mark*>(item);
-            AddMark(markItem->getX() + x, markItem->getY() + y, markItem->getAngular());
+            addMark(markItem->getX() + x, markItem->getY() + y, markItem->getAngular());
         }
     }
     else
@@ -122,7 +147,7 @@ void MainWindow::moveToMark(int x, int y)
     if (!selectedItems.empty())
     {
         Mark* markItem = qgraphicsitem_cast<Mark*>(selectedItems[0]);
-        if(AddMark(x, y, markItem->getAngular())) delete markItem;
+        if(addMark(x, y, markItem->getAngular())) delete markItem;
     }
     else
     {
