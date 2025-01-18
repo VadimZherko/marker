@@ -16,8 +16,8 @@ public:
 
 private:
     int angular;
-    int x;
-    int y;
+    double x;
+    double y;
 };
 
 #endif // MARK_H

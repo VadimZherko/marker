@@ -12,7 +12,7 @@ Mark::Mark(int x, int y, int angular)
     else if (angular == 270) QrImage.load(":/new/prefix1/img/markIcon_270.png");
 
     this->setPixmap(QrImage);
-    //this->setFlag(QGraphicsItem::ItemIsMovable);
+    this->setFlag(QGraphicsItem::ItemIsMovable);
     this->setFlag(QGraphicsItem::ItemIsSelectable);
 }
 

@@ -8,6 +8,7 @@
 
 #include "dialog.h"
 #include "mark.h"
+#include "scene.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,15 +27,15 @@ public:
 private:
     Ui::MainWindow *ui;
     Dialog* DialogWidget = new Dialog;
-    QGraphicsScene *scene = new QGraphicsScene();
+    Scene* scene = new Scene;
 
     const int gridSize = 40;
 
-    bool addMark(int x , int y, int angular);
+    bool addMark(double x , double y, int angular);
+    bool checkInputMark(double, double);
     void removeMark();
-    void duplicateMark(int x, int y);
-    void moveToMark(int x, int y);
-    void drawBackground(QGraphicsScene*);
+    void duplicateMark(double x, double y);
+    void moveToMark(double x, double y);
 
 private slots:
     void rotateMark();

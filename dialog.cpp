@@ -173,22 +173,20 @@ void Dialog::showAddMarkDialog()
         QLineEdit* yLineEdit = addMarkDialog.findChild<QLineEdit*>("yLineEdit");
         QComboBox* angularComboBox = addMarkDialog.findChild<QComboBox*>("angularComboBox");
 
-        if((xLineEdit->text() != "0" and xLineEdit->text().toInt() == 0) or (yLineEdit->text() != "0" and yLineEdit->text().toInt() == 0))
+        if(checkInput(xLineEdit->text(), yLineEdit->text()))
         {
-            QMessageBox::warning(this,"Error", "Invalid input");
-
-            xLineEdit->clear();
-            yLineEdit->clear();
-            angularComboBox->setCurrentIndex(0);
-        }
-        else
-        {
-            int x = xLineEdit->text().toInt() * gridSize - gridSize / 3;
-            int y = yLineEdit->text().toInt() * - gridSize;
+            int x = xLineEdit->text().toDouble() * gridSize - gridSize / 3;
+            int y = yLineEdit->text().toDouble() * - gridSize;
             xLineEdit->clear();
             yLineEdit->clear();
             angularComboBox->setCurrentIndex(0);
             emit dataReady(x, y, angularComboBox->currentText().toInt());
+        }
+        else
+        {
+            xLineEdit->clear();
+            yLineEdit->clear();
+            angularComboBox->setCurrentIndex(0);
         }
     }
 }
@@ -200,21 +198,19 @@ void Dialog::showDuplicateMarkDialog()
         QLineEdit* xLineEdit = duplicateMarkDialog.findChild<QLineEdit*>("xLineEdit");
         QLineEdit* yLineEdit = duplicateMarkDialog.findChild<QLineEdit*>("yLineEdit");
 
-        if((xLineEdit->text() != "0" and xLineEdit->text().toInt() == 0) or (yLineEdit->text() != "0" and yLineEdit->text().toInt() == 0))
+        if(checkInput(xLineEdit->text(), yLineEdit->text()))
         {
-            QMessageBox::warning(this,"Error", "Invalid input");
-
-            xLineEdit->clear();
-            yLineEdit->clear();
-        }
-        else
-        {
-            int x = (xLineEdit->text().toInt()) * gridSize;
-            int y = (yLineEdit->text().toInt()) * -gridSize;
+            int x = (xLineEdit->text().toDouble()) * gridSize;
+            int y = (yLineEdit->text().toDouble()) * -gridSize;
             xLineEdit->clear();
             yLineEdit->clear();
             emit dataDuplicateReady(x, y);
 
+        }
+        else
+        { 
+            xLineEdit->clear();
+            yLineEdit->clear();
         }
     }
 }
@@ -226,21 +222,40 @@ void Dialog::showMoveToMarkDialog()
 
     if(moveToMarkDialog.exec() == QDialog::Accepted)
     {
-        if((xLineEdit->text() != "0" and xLineEdit->text().toInt() == 0) or (yLineEdit->text() != "0" and yLineEdit->text().toInt() == 0))
+        if(checkInput(xLineEdit->text(), yLineEdit->text()))
         {
-            QMessageBox::warning(this,"Error", "Invalid input");
-
-            xLineEdit->clear();
-            yLineEdit->clear();
-        }
-        else
-        {
-            int x = xLineEdit->text().toInt() * gridSize - gridSize / 3;
-            int y = yLineEdit->text().toInt() * -gridSize;
+            int x = xLineEdit->text().toDouble() * gridSize - gridSize / 3;
+            int y = yLineEdit->text().toDouble() * -gridSize;
             xLineEdit->clear();
             yLineEdit->clear();
             emit dataMoveToReady(x, y);
         }
+        else
+        {
+            xLineEdit->clear();
+            yLineEdit->clear();
+        }
     }
+}
+
+bool Dialog::checkInput(QString xLineText, QString yLineText)
+{
+    bool isDoubleX;
+    bool isDoubleY;
+    xLineText.toDouble(&isDoubleX);
+    xLineText.toDouble(&isDoubleY);
+
+    if(!isDoubleX)
+    {
+        QMessageBox::warning(this,"Error", "Invalid input: invalid character entered in X");
+        return false;
+    }
+    if(!isDoubleX)
+    {
+        QMessageBox::warning(this,"Error", "Invalid input: invalid character entered in Y");
+        return false;
+    }
+
+    return true;
 }
 

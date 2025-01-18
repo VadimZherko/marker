@@ -22,10 +22,12 @@ private:
     QDialog duplicateMarkDialog;
     QDialog moveToMarkDialog;
 
+    bool checkInput(QString, QString);
+
 signals:
-    void dataReady(int x, int y, int angular);
-    void dataDuplicateReady(int x, int y);
-    void dataMoveToReady(int x, int y);
+    void dataReady(double x, double y, int angular);
+    void dataDuplicateReady(double x, double y);
+    void dataMoveToReady(double x, double y);
 
 public slots:
     void showAddMarkDialog();
